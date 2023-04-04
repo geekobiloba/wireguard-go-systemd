@@ -30,8 +30,9 @@ is probably LX-branded zone in SmartOS or OmniOS.
     apt install --no-install-recommends wireguard-go wireguard-tools
     ```
 
-    Then generate private and public keys, and create config file with `.conf` suffix.
-    The only wg-quick additional config implemented is `Address`.
+    Then generate private and public keys, and create config file with `.conf` suffix,
+    as you would with vanilla WireGuard.
+    Except, the only wg-quick additional config implemented is `Address`.
 
 3.  Copy the scripts into WireGuard directory, make sure they are executable,
 
