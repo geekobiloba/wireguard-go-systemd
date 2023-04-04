@@ -1,18 +1,21 @@
 #   Run wireguard-go as systemd service
 
-##  Why
+##  Why?
 
 While WireGuard module has long been included in Linux kernel,
 not every system has it.
 My recent encounter is with [Niagahoster VPS](https://www.niagahoster.co.id/cloud-vps-hosting),
 which actually is a system container,
 may be LXD,
-and not HVM.
+not an HVM.
+Luckily there's a [WireGuard implementaion in Go](https://github.com/WireGuard/wireguard-go) to save.
+And we only need to run it as a systemd service.
+
 Other system may find this useful,
 besides LXD,
 is probably LX-branded zone in SmartOS or OmniOS.
 
-##  How to install in Debian 11
+##  Install it in Debian 11
 
 1.  Enable backports,
 
@@ -27,14 +30,14 @@ is probably LX-branded zone in SmartOS or OmniOS.
     apt install --no-install-recommends wireguard-go wireguard-tools
     ```
 
-3.  Copy scripts into WireGuard directory, and make sure they're executable,
+3.  Copy the scripts into WireGuard directory, make sure they are executable,
 
     ```bash
     cp wg-if-* /etc/wireguard
     chmod 700  /etc/wireguard/wg-if-*
     ```
 
-4.  Copy the systemd service file into place,
+4.  Copy the service file into place,
 
     ```bash
     cp wireguard-go.service /etc/systemd/system
@@ -46,7 +49,7 @@ is probably LX-branded zone in SmartOS or OmniOS.
     systemctl enable --now wireguard-go.service
     ```
 
-##  Limitation
+##  Limitations
 
 Currently, the only wg-quick additional config implemented is `Address`.
 
