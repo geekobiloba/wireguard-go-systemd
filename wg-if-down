@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+ WG=/usr/bin/wg
+ IP=/sbin/ip
+AWK=/usr/bin/awk
+
+# Process every WireGuard interface
+for iface in "$($WG | $AWK -F ':' '/^interface/ {print $2}')" ; do
+    $IP address flush dev $iface
+    $IP link set down dev $iface
+    $IP link delete   dev $iface
+done

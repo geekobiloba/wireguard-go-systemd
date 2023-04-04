@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+WG_DIR=/etc/wireguard
+ WG_GO=/usr/bin/wireguard
+    WG=/usr/bin/wg
+    IP=/sbin/ip
+   AWK=/usr/bin/awk
+
+# Parse every config file in WireGuard directory
+for conf in ${WG_DIR}/*.conf ; do
+    WG_IF=$(basename $conf .conf)
+
+    # Create the interface
+    $WG_GO $WG_IF
+
+    # Proceed only if the interface creation succeeded
+    if [ $? -eq 0 ] ; then
+
+        # Add addresses to the interface
+        WG_ADDR=$($AWK -F '=' '/^\s*Address/ {print $2}' $conf)
+
+        if [ ! -z "$WG_ADDR" ] ; then
+            $IP address flush dev $WG_IF
+
+            for addr in "$WG_ADDR" ; do
+                $IP address add $addr dev $WG_IF
+            done
+        fi
+
+        $IP link set up dev $WG_IF
+
+        # Set config without wg-quick addtional fields
+        TMP_CONF=$(mktemp)
+
+        $AWK '!/^\s*(Address|DNS|MTU|Table|PreUp|PostUp|PreDown|PostDown|SaveConfig)/' $conf > $TMP_CONF
+        $WG setconf $WG_IF $TMP_CONF
+        rm -f $TMP_CONF
+    fi
+done
