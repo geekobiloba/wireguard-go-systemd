@@ -9,13 +9,13 @@ which actually is a system container,
 may be LXD,
 not an HVM.
 Luckily there's a [WireGuard implementaion in Go](https://github.com/WireGuard/wireguard-go) to save.
-And we only need to run it as a systemd service.
+And we only need to run it as a systemd service for manageability.
 
 Other system may find this useful,
 besides LXD,
 is probably LX-branded zone in SmartOS or OmniOS.
 
-##  Install it in Debian 11
+##  Install in Debian 11
 
 1.  Enable backports,
 
@@ -24,7 +24,7 @@ is probably LX-branded zone in SmartOS or OmniOS.
     apt update
     ```
 
-2.  Install dependencies,
+2.  Install only the main packages,
 
     ```bash
     apt install --no-install-recommends wireguard-go wireguard-tools
@@ -38,7 +38,7 @@ is probably LX-branded zone in SmartOS or OmniOS.
 
     ```bash
     cp wg-if-* /etc/wireguard
-    chmod 700  /etc/wireguard/wg-if-*
+    chmod 500  /etc/wireguard/wg-if-*
     ```
 
 4.  Copy the service file into place,
