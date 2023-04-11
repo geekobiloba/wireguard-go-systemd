@@ -2,6 +2,7 @@
 Description               = WireGuard via wireguard-go
 After                     = network-online.target nss-lookup.target
 Wants                     = network-online.target nss-lookup.target
+ConditionPathExists       = /dev/net/tun
 ConditionFileIsExecutable = /etc/wireguard/wg-if-up
 ConditionFileIsExecutable = /etc/wireguard/wg-if-down
 
