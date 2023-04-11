@@ -12,7 +12,7 @@ Luckily there's an official [WireGuard implementaion in Go](https://github.com/W
 And we only need to run it as a systemd service for manageability.
 
 Other systems which may find this useful
-are probably Linux LXD containers and SmartOS or OmniOS LX-branded zones.
+are probably LXD containers and SmartOS or OmniOS LX-branded zones.
 
 ##  Install in Debian 11
 
