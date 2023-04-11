@@ -23,7 +23,7 @@ are probably Linux LXD and SmartOS or OmniOS LX-branded zones.
     ls /dev/net/tun
     ```
 
-    In Niagahoster VPS, turn on the **TUN/TAP\ Adapter** switch in VPS config page.
+    In Niagahoster VPS, turn on the **TUN/TAP Adapter** switch in VPS config page.
 
 2.  Enable backports,
 
